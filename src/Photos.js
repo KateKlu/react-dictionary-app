@@ -1,13 +1,27 @@
 import React from "react";
 
-export default function Photos() {
-  return (
-    <section className="photo">
-      <div className="row">
-        <div className="col-4">
-          <img src="#" alt="Show searching word" />
+export default function Photos(props) {
+  if (props.photos) {
+    return (
+      <section className="Photos">
+        <div className="row">
+          {props.photos.map(function (photo, index) {
+            return (
+              <div className="col-4" key={index}>
+                <a href={photo.src.original} target="_blank" rel="noreferrer">
+                  <img
+                    src={photo.src.landscape}
+                    alt={photo.alt}
+                    className="img-fluid m-1"
+                  />
+                </a>
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  } else {
+    return null;
+  }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ShowMeaningData(props) {
+export default function MeaningData(props) {
   if (props.value) {
     if (props.name === "example") {
       return (
