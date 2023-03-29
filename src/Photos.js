@@ -5,7 +5,7 @@ export default function Photos() {
     <section className="photo">
       <div className="row">
         <div className="col-4">
-          <img src="#" alt="Image about searching word" />
+          <img src="#" alt="Show searching word" />
         </div>
       </div>
     </section>

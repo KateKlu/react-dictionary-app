@@ -1,19 +1,24 @@
 import React from "react";
+import Meaning from "./Meaning";
 
-export default function Resalt() {
+export default function Resalt(props) {
+  let meanings = props.wordData.meanings;
+
   return (
     <div className="Resalt">
       <section>
-        <h1>Dream</h1>
-        <p>phonetic</p>
+        <h1>{props.wordData.word}</h1>
+        <p>[{props.wordData.phonetic}]</p>
       </section>
-      <section>
-        <h2>partOfSpeech</h2>
-        <p>definition:</p>
-        <p> example:</p>
-        <p>synonyms:</p>
-        <p>antonyms:</p>
-      </section>
+      <div>
+        {meanings.map(function (wordMeaning, index) {
+          return (
+            <section key={index}>
+              <Meaning wordData={wordMeaning} />
+            </section>
+          );
+        })}
+      </div>
     </div>
   );
 }
