@@ -5,13 +5,13 @@ export default function MeaningData(props) {
     if (props.name === "example") {
       return (
         <p>
-          {props.name}: {props.value}
+          <b> {props.name}:</b> {props.value}
         </p>
       );
     } else {
       return (
         <div>
-          <span>{props.name}:</span>
+          <b>{props.name}:</b>
           <ul>
             {props.value.map(function (value, index) {
               return <li key={index}>{value}</li>;

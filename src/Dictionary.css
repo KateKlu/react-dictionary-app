@@ -1,0 +1,13 @@
+.Dictionary section {
+  background: rgb(252, 247, 241);
+  box-shadow: 5px 15px 10px rgba(31, 30, 30, 0.4);
+  padding: 40px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+@media (width<576px) {
+  .Dictionary section {
+    padding: 25px;
+  }
+}

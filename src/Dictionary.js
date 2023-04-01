@@ -61,11 +61,17 @@ export default function Dictionary(props) {
                   onChange={changeWord}
                 />
               </div>
-              <div className="col-3">
+              <div className="col-3 ">
                 <input
                   type="submit"
                   value="Search"
-                  className="btn btn-primary w-100"
+                  className="btn btn-primary w-100 d-none d-sm-block"
+                />
+
+                <input
+                  type="submit"
+                  value="🔍"
+                  className="btn btn-primary w-100 d-sm-none d-block"
                 />
               </div>
             </div>

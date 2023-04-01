@@ -1,0 +1,9 @@
+.Result h1 {
+  opacity: 0.8;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.Result p {
+  margin-bottom: 7px;
+}
