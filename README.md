@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+📖 Dictionary with Photos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Dictionary app mock‑up showing desktop & mobile](./public/dictionary_scrin_small.png)
 
-## Available Scripts
+Live Demo → https://dictionary-with-photos.netlify.app/
 
-In the project directory, you can run:
+A single‑page React dictionary that pairs clear definitions with curated images. Type a term, hit Enter – you get clean definitions, phonetic transcription, and a grid of curated photos that lock the meaning in memory.
 
-### `npm start`
+Why I built it
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project explores how combining text with imagery can improve vocabulary retention. Text alone doesn’t stay in memory; text + imagery does. So I built a clean React front‑end with two public APIs—one for words, one for pictures—and deployed it to Netlify.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Key Features
 
-### `npm test`
+-  Fast lookup. Meaning, part of speech, synonyms, examples and IPA in one view.
+-  Pronunciation hint. Inline IPA shows how to say the word.
+-  Visual cue. Nine royalty‑free photos illustrate the word (via SheCodes Images API).
+-  Optimised for mobile & desktop. Bootstrap grid + light CSS; quick load times.
+-  Pure front‑end. Just React and HTTPS calls, no server needed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Tech Stack
 
-### `npm run build`
+-  UI: React 18, React Hooks for state; Bootstrap 5 utility classes for spacing & grid
+-  Data: SheCodes Dictionary API for lexical data; SheCodes Images API for photos
+-  HTTP: Axios – tiny, promise‑based, simple error handling
+-  Dev: Create React App scaffold, ESLint + Prettier for code quality
+-  Deploy: Netlify CI/CD on every push to main
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+How it Works
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. On load, the app searches for a default word (dream).
+2. Dictionary.js manages the input field and triggers an Axios request to /dictionary/v1/define.
+3. Once the definition arrives, a second call pulls related images from /images/v1/search.
+4. Child components (Result, Meaning, Photos) render the data in tidy sections.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+What I learned
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-  Handling multiple asynchronous calls in a single component with useState + useEffect.
+-  Quick‑and‑clean deployment pipeline with Netlify.
