@@ -1,88 +1,138 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Result from "./Result";
-import Photos from "./Photos";
-import "./Dictionary.css";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Result from './Result';
+import Photos from './Photos';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import './Dictionary.css';
 
 export default function Dictionary(props) {
-  const [loaded, setLoaded] = useState(false),
-    [word, setWord] = useState(props.defaultWord),
-    [wordData, setWordData] = useState({}),
-    [photos, setPhotos] = useState([]);
+   const [isLoading, setIsLoading] = useState(false);
+   const [word, setWord] = useState(props.defaultWord);
+   const [wordData, setWordData] = useState({});
+   const [photos, setPhotos] = useState([]);
+   const [showModal, setShowModal] = useState(false);
+   const [modalMsg, setModalMsg] = useState('');
 
-  function changeWord(event) {
-    setWord(event.target.value);
-  }
+   useEffect(() => {
+      search(props.defaultWord);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
 
-  function handlePhoto(response) {
-    console.log(`photo ${response.data.photos}`);
-    setPhotos(response.data.photos);
-  }
+   function openModal(message) {
+      setModalMsg(message);
+      setShowModal(true);
+   }
 
-  function searchPhoto() {
-    let apiKey = "eac360db5fc86ft86450f3693e73o43f",
-      apiLink = `https://api.shecodes.io/images/v1/search?query=${word}&key=${apiKey}`;
-    axios(apiLink).then(handlePhoto);
-  }
+   function changeWord(event) {
+      setWord(event.target.value);
+   }
 
-  function handleResponse(response) {
-    console.log(`data${response.data}`);
+   function handlePhoto(response) {
+      setPhotos(response.data.photos);
+   }
 
-    setWordData(response.data);
-    setLoaded(true);
-    searchPhoto();
-  }
+   function searchPhoto(term) {
+      const apiKey = 'eac360db5fc86ft86450f3693e73o43f';
+      const url = `https://api.shecodes.io/images/v1/search?query=${term}&key=${apiKey}`;
+      axios.get(url).then(handlePhoto);
+   }
 
-  function search() {
-    let apiKey = "eac360db5fc86ft86450f3693e73o43f",
-      apiLink = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
-    axios(apiLink).then(handleResponse);
-  }
+   function handleResponse(response) {
+      setIsLoading(false);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    search();
-  }
+      if (!response.data.meanings || response.data.meanings.length === 0) {
+         openModal(`Word “${word}” not found. Please try another.`);
+         setWordData(null);
+         return;
+      }
 
-  if (loaded) {
-    return (
+      setWordData(response.data);
+      searchPhoto(word);
+   }
+
+   function handleError() {
+      setIsLoading(false);
+      openModal('Network error. Please try again later.');
+   }
+
+   function search() {
+      setIsLoading(true);
+      const apiKey = 'eac360db5fc86ft86450f3693e73o43f';
+      const apiLink = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
+      axios.get(apiLink).then(handleResponse).catch(handleError);
+   }
+
+   function handleSubmit(event) {
+      event.preventDefault();
+      if (!word.trim()) {
+         openModal('Please enter a word.');
+         return;
+      }
+      search(word);
+   }
+
+   return (
       <div className="Dictionary">
-        <section>
-          <h2>What word would you like to look up?</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-9">
-                <input
-                  type="search"
-                  autoFocus={true}
-                  placeholder="Search for a word"
-                  defaultValue={props.defaultWord}
-                  className="w-100 h-100"
-                  onChange={changeWord}
-                />
-              </div>
-              <div className="col-3 ">
-                <input
-                  type="submit"
-                  value="Search"
-                  className="btn btn-primary w-100 d-none d-sm-block"
-                />
+         <section>
+            <h2>What word would you like to look up?</h2>
+            <form onSubmit={handleSubmit}>
+               <div className="row">
+                  <div className="col-9">
+                     <input
+                        type="search"
+                        autoFocus={true}
+                        placeholder="Search for a word"
+                        defaultValue={props.defaultWord}
+                        className="w-100 h-100"
+                        onChange={changeWord}
+                     />
+                  </div>
+                  <div className="col-3 ">
+                     <input
+                        type="submit"
+                        value="Search"
+                        className="btn btn-primary w-100 d-none d-sm-block"
+                     />
 
-                <input
-                  type="submit"
-                  value="🔍"
-                  className="btn btn-primary w-100 d-sm-none d-block"
-                />
-              </div>
+                     <input
+                        type="submit"
+                        value="🔍"
+                        className="btn btn-primary w-100 d-sm-none d-block"
+                     />
+                  </div>
+               </div>
+            </form>
+         </section>
+
+         {isLoading && (
+            <div className="Dictionary">
+               <section>
+                  <p>Loading...</p>
+               </section>
             </div>
-          </form>
-        </section>
-        <Result wordData={wordData} />
-        <Photos photos={photos} />
+         )}
+
+         {!isLoading &&
+            wordData &&
+            Array.isArray(wordData.meanings) &&
+            wordData.meanings.length > 0 && (
+               <>
+                  <Result wordData={wordData} />
+                  <Photos photos={photos} />
+               </>
+            )}
+         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal.Header closeButton>
+               <Modal.Title>Notice</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{modalMsg}</Modal.Body>
+            <Modal.Footer>
+               <Button variant="primary" onClick={() => setShowModal(false)}>
+                  OK
+               </Button>
+            </Modal.Footer>
+         </Modal>
       </div>
-    );
-  } else {
-    search();
-    return "Loading...";
-  }
+   );
 }

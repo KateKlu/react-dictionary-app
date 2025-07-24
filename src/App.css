@@ -1,51 +1,48 @@
 .App {
-  background-image: linear-gradient(
-      rgba(231, 231, 231, 0.3),
-      rgba(61, 60, 60, 0.7)
-    ),
-    url("../public/back.jpg");
-  /* url("../public/6066690175.png"); */
-  /* url("../public/background.jpg"); */
-  /* background-size: cover; */
-  background-size: contain;
+   background-image: linear-gradient(
+         rgba(231, 231, 231, 0.3),
+         rgba(61, 60, 60, 0.7)
+      ),
+      url('../public/back.jpg');
+   background-size: contain;
 
-  background-color: rgb(152, 98, 47);
-  padding: 40px 0;
+   background-color: rgb(152, 98, 47);
+   padding: 40px 0;
 }
 
 .App .container {
-  max-width: 900px;
+   max-width: 900px;
 }
 
 .App h2 {
-  font-size: 24px;
-  opacity: 0.8;
-  font-weight: bold;
+   font-size: 24px;
+   opacity: 0.8;
+   font-weight: bold;
 }
 
 .App header,
 footer {
-  text-align: center;
-  color: white;
+   text-align: center;
+   color: white;
 
-  margin: 20px 0;
+   margin: 20px 0;
 }
 
 .App header h1 {
-  font-size: 100px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  text-shadow: 5px 5px 20px rgba(19, 19, 19, 0.9);
+   font-size: 100px;
+   font-weight: bold;
+   margin-bottom: 30px;
+   text-shadow: 5px 5px 20px rgba(19, 19, 19, 0.9);
 }
 
 .App footer a {
-  color: #90daf9;
-  text-shadow: 5px 5px 10px rgba(31, 30, 30, 0.8);
+   color: #90daf9;
+   text-shadow: 5px 5px 10px rgba(31, 30, 30, 0.8);
 }
 
 @media (width<576px) {
-  .App header h1 {
-    font-size: 65px;
-    text-shadow: 5px 5px 10px rgba(19, 19, 19, 0.8);
-  }
+   .App header h1 {
+      font-size: 65px;
+      text-shadow: 5px 5px 10px rgba(19, 19, 19, 0.8);
+   }
 }
