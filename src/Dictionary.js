@@ -33,7 +33,7 @@ export default function Dictionary(props) {
    }
 
    function searchPhoto(term) {
-      const apiKey = 'eac360db5fc86ft86450f3693e73o43f';
+      const apiKey = process.env.REACT_APP_SHECODES_KEY;
       const url = `https://api.shecodes.io/images/v1/search?query=${term}&key=${apiKey}`;
       axios.get(url).then(handlePhoto);
    }
@@ -58,7 +58,7 @@ export default function Dictionary(props) {
 
    function search() {
       setIsLoading(true);
-      const apiKey = 'eac360db5fc86ft86450f3693e73o43f';
+      const apiKey = process.env.REACT_APP_SHECODES_KEY;
       const apiLink = `https://api.shecodes.io/dictionary/v1/define?word=${word}&key=${apiKey}`;
       axios.get(apiLink).then(handleResponse).catch(handleError);
    }
